@@ -63,3 +63,13 @@ def post_reviews():
         return "The review was added."
 
     return "Your request was not valid. Please try again."
+
+@app.route('/api/v1/summarize', methods=['POST'])
+def get_summary():
+    text = request.form.get('text')
+    cluster_type = request.form.get('cluster_type')
+    if text and cluster_type:
+        results = {}
+        results["summary"] = summarize(text, cluster_type)
+        return json.dumps(results)
+    return "Your request was not valid. Please try again."
